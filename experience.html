@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Experience - Jangs</title>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo">Jangs</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="skills.html">Skills</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html" class="active">Experience</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="experience">
+      <h1>My Experience</h1>
+      <div class="experience-container">
+        <div class="experience-box">
+          <div class="experience-header">
+            <h3>OSIS MTs - Bagian Humas</h3>
+            <span class="company">2020 - 2021</span>
+          </div>
+          <p class="period">MTs</p>
+          <p class="experience-desc">
+            Bertanggung jawab membangun komunikasi positif antara OSIS dan siswa, menyusun pengumuman dan materi kegiatan, serta memastikan informasi program sekolah tersampaikan dengan jelas dan rapi.
+          </p>
+          <div class="skills-tag">
+            <span>Komunikasi</span>
+            <span>Koordinasi</span>
+            <span>Publikasi</span>
+          </div>
+        </div>
+
+        <div class="experience-box">
+          <div class="experience-header">
+            <h3>Wakil Ketua Dewan Ambalan</h3>
+            <span class="company">2023 - 2024</span>
+          </div>
+          <p class="period">Pramuka</p>
+          <p class="experience-desc">
+            Memimpin kegiatan kesiswaan dan kepramukaan, mendukung pelaksanaan program ambalan, serta menjaga semangat kerja tim dan disiplin anggota selama pertemuan dan kegiatan luar ruang.
+          </p>
+          <div class="skills-tag">
+            <span>Leadership</span>
+            <span>Teamwork</span>
+            <span>Organisasi</span>
+          </div>
+        </div>
+
+        <div class="experience-box">
+          <div class="experience-header">
+            <h3>OSIS SMK - Bagian Pendidikan</h3>
+            <span class="company">2024 - 2025</span>
+          </div>
+          <p class="period">SMK</p>
+          <p class="experience-desc">
+            Mengembangkan program pendidikan dan kegiatan belajar siswa, mendukung pelaksanaan seminar serta workshop, dan membantu menciptakan lingkungan sekolah yang inspiratif dan mendidik.
+          </p>
+          <div class="skills-tag">
+            <span>Perencanaan</span>
+            <span>Pengembangan</span>
+            <span>Motivasi</span>
+          </div>
+        </div>
+
+        <div class="experience-box">
+          <div class="experience-header">
+            <h3>PKL Admin HRD</h3>
+            <span class="company">Tanjung Lesung Resort</span>
+          </div>
+          <p class="period">2024</p>
+          <p class="experience-desc">
+            Melakukan tugas administratif HRD seperti pengarsipan dokumen, pengelolaan data karyawan, dan mendukung proses rekrutmen serta koordinasi internal untuk menjaga kelancaran operasional hotel.
+          </p>
+          <div class="skills-tag">
+            <span>Administrasi</span>
+            <span>HRD</span>
+            <span>Dokumentasi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const main = document.querySelector('section') || document.body;
+        main.classList.add('page-enter');
+        const navLinks = Array.from(document.querySelectorAll('header nav a'));
+        function safeNavigate(href, anchor) {
+          try {
+            const url = new URL(href, location.href);
+            if (url.origin !== location.origin) { location.href = href; return; }
+            if (url.pathname === location.pathname && url.search === location.search) { location.href = href; return; }
+          } catch (e) {}
+          anchor.classList.add('nav-clicked');
+          document.documentElement.classList.add('is-transitioning');
+          main.classList.add('page-exit');
+          document.body.style.pointerEvents = 'none';
+          const onEnd = (ev) => { if (ev.target !== main) return; cleanup(); location.href = href; };
+          const cleanup = () => { main.removeEventListener('animationend', onEnd); document.body.style.pointerEvents = ''; };
+          main.addEventListener('animationend', onEnd);
+          setTimeout(() => { if (document.body.style.pointerEvents === '') return; cleanup(); location.href = href; }, 900);
+        }
+        navLinks.forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href.startsWith('#')) return;
+            e.preventDefault();
+            safeNavigate(href, a);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

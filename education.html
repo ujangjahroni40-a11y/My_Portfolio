@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Education - Jangs</title>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo">Jangs</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="skills.html">Skills</a>
+        <a href="education.html" class="active">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="education">
+      <h1>My Education</h1>
+      <div class="education-container">
+        <div class="education-box edu-mts">
+          <div class="education-logo" aria-hidden="true">
+            <img src="image/OIP.jpg" alt="Logo MTs" />
+          </div>
+
+          <h3>MTs Mathla'ul Anwar</h3>
+          <p class="school">Serang, Banten</p>
+          <p class="period">2019 - 2021</p>
+        </div>
+
+        <div class="education-box edu-smk">
+          <div class="education-logo" aria-hidden="true">
+            <img src="image/karwis.jpg" />
+          </div>
+
+          <h3>SMK Karya Wisata</h3>
+          <p class="school">Pandeglang, Banten</p>
+          <p class="period">2021 - 2024</p>
+        </div>
+
+        <div class="education-box edu-unpam">
+          <div class="education-logo" aria-hidden="true">
+            <img src="image/unpam.jpg" alt="Logo Universitas" />
+          </div>
+
+          <h3>Universitas Pamulang</h3>
+          <p class="school">Kota Serang, Banten</p>
+          <p class="period">2024 - Sekarang</p>
+        </div>
+      </div>
+    </section>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const main = document.querySelector('section') || document.body;
+        main.classList.add('page-enter');
+        const navLinks = Array.from(document.querySelectorAll('header nav a'));
+        function safeNavigate(href, anchor) {
+          try {
+            const url = new URL(href, location.href);
+            if (url.origin !== location.origin) { location.href = href; return; }
+            if (url.pathname === location.pathname && url.search === location.search) { location.href = href; return; }
+          } catch (e) {}
+          anchor.classList.add('nav-clicked');
+          document.documentElement.classList.add('is-transitioning');
+          main.classList.add('page-exit');
+          document.body.style.pointerEvents = 'none';
+          const onEnd = (ev) => { if (ev.target !== main) return; cleanup(); location.href = href; };
+          const cleanup = () => { main.removeEventListener('animationend', onEnd); document.body.style.pointerEvents = ''; };
+          main.addEventListener('animationend', onEnd);
+          setTimeout(() => { if (document.body.style.pointerEvents === '') return; cleanup(); location.href = href; }, 900);
+        }
+        navLinks.forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href.startsWith('#')) return;
+            e.preventDefault();
+            safeNavigate(href, a);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Contact - Jangs</title>
+  </head>
+  <body>
+    <header>
+      <a href="index.html" class="logo">Jangs</a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="skills.html">Skills</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <section id="contact" class="contact">
+      <h1>Contact</h1>
+      <div class="contact-container">
+        <form action="#" class="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your Name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Your Email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="Your Message"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+
+        <div class="contact-info">
+          <h3>Contact</h3>
+          <div class="contact-items">
+            <a class="contact-item" href="https://www.instagram.com/jngjhrn_2707/#" target="_blank" rel="noopener noreferrer">
+              <div class="icon"><i class="fa-brands fa-instagram"></i></div>
+              <div class="text">instagram.com/jngjhrn_2707</div>
+            </a>
+
+            <a class="contact-item" href="https://wa.me/6283187795496" target="_blank" rel="noopener noreferrer">
+              <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="text">+62 83187795496</div>
+            </a>
+
+            <a class="contact-item" href="https://github.com/ujangjahroni40-a11y" target="_blank" rel="noopener noreferrer">
+              <div class="icon"><i class="fa-brands fa-github"></i></div>
+              <div class="text">github.com/ujangjahroni40-a11y</div>
+            </a>
+
+            <a class="contact-item" href="https://twitter.com/Ujangjahroni" target="_blank" rel="noopener noreferrer">
+              <div class="icon"><i class="fa-brands fa-x-twitter"></i></div>
+              <div class="text">twitter.com/Ujangjahroni</div>
+            </a>
+          </div>
+          <div class="social-icons">
+            <a href="https://www.instagram.com/jngjhrn_2707/#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/6283187795496" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://github.com/ujangjahroni40-a11y" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+            <a href="https://twitter.com/Ujangjahroni" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const main = document.querySelector('section') || document.body;
+        main.classList.add('page-enter');
+        const navLinks = Array.from(document.querySelectorAll('header nav a'));
+        function safeNavigate(href, anchor) {
+          try {
+            const url = new URL(href, location.href);
+            if (url.origin !== location.origin) { location.href = href; return; }
+            if (url.pathname === location.pathname && url.search === location.search) { location.href = href; return; }
+          } catch (e) {}
+          anchor.classList.add('nav-clicked');
+          document.documentElement.classList.add('is-transitioning');
+          main.classList.add('page-exit');
+          document.body.style.pointerEvents = 'none';
+          const onEnd = (ev) => {
+            if (ev.target !== main) return;
+            cleanup();
+            location.href = href;
+          };
+          const cleanup = () => {
+            main.removeEventListener('animationend', onEnd);
+            document.body.style.pointerEvents = '';
+          };
+          main.addEventListener('animationend', onEnd);
+          setTimeout(() => {
+            if (document.body.style.pointerEvents === '') return;
+            cleanup();
+            location.href = href;
+          }, 900);
+        }
+        const nav = document.querySelector('header nav');
+        const menuToggle = document.querySelector('.menu-toggle');
+
+        if (menuToggle) {
+          menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', String(!expanded));
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+          });
+        }
+
+        navLinks.forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href.startsWith('#')) return;
+            e.preventDefault();
+            // close mobile menu if open
+            if (nav && nav.classList.contains('active')) {
+              nav.classList.remove('active');
+              if (menuToggle) {
+                menuToggle.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+              }
+            }
+            safeNavigate(href, a);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

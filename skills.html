@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Skills - Jangs</title>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo">Jangs</a>
+      <div class="menu-toggle" id="mobile-menu">
+        <i class="fa fa-bars"></i>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="skills.html" class="active">Skills</a>
+        <a href="education.html">Education</a>
+        <a href="experience.html">Experience</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <section class="skills">
+      <h1>My Skills</h1>
+      
+      <div class="skills-container">
+        <div class="skills-column soft-skills">
+          <h2 class="column-title">Soft Skills</h2>
+          
+          <div class="skill">
+            <h3>Storytelling</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Kolaborasi</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Decision-Making</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Komunikasi</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 82%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Critical Thinking</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-column tech-skills">
+          <h2 class="column-title">Technical Skills</h2>
+          
+          <div class="skill">
+            <h3>Data Visualization</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Data Cleaning</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 88%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Excel</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 90%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>SQL</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 78%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Python</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+          
+          <div class="skill">
+            <h3>Machine Learning</h3>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 70%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      const mobileMenu = document.getElementById("mobile-menu");
+      const nav = document.querySelector("nav");
+      if (mobileMenu) {
+        mobileMenu.addEventListener("click", () => {
+          nav.classList.toggle("active");
+        });
+      }
+    </script>
+
+    <script>
+      // Smooth page transition for skills page
+      document.addEventListener('DOMContentLoaded', () => {
+        const main = document.querySelector('section') || document.body;
+        main.classList.add('page-enter');
+        const navLinks = Array.from(document.querySelectorAll('header nav a'));
+        function safeNavigate(href, anchor) {
+          try {
+            const url = new URL(href, location.href);
+            if (url.origin !== location.origin) { location.href = href; return; }
+            if (url.pathname === location.pathname && url.search === location.search) { location.href = href; return; }
+          } catch (e) {}
+          anchor.classList.add('nav-clicked');
+          document.documentElement.classList.add('is-transitioning');
+          main.classList.add('page-exit');
+          document.body.style.pointerEvents = 'none';
+          const onEnd = (ev) => { if (ev.target !== main) return; cleanup(); location.href = href; };
+          const cleanup = () => { main.removeEventListener('animationend', onEnd); document.body.style.pointerEvents = ''; };
+          main.addEventListener('animationend', onEnd);
+          setTimeout(() => { if (document.body.style.pointerEvents === '') return; cleanup(); location.href = href; }, 900);
+        }
+        navLinks.forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (!href || href.startsWith('#')) return;
+            e.preventDefault();
+            safeNavigate(href, a);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
